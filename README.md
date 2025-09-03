@@ -33,7 +33,7 @@ npm start # -> http://localhost:3000
 
 ## 🧰 Tech Stack
 
-- **Frontend:** React (Create React App), vanilla CSS (modern, responsive, dark/light aware)
+- **Frontend:** React (Create React App), vanilla CSS (modern, responsive, dark aware)
 - **Backend:** Node.js + Express, multer (file uploads), nanoid (IDs), morgan (logs), cors
 - **Persistence:** In-memory store (required) + JSON file on disk (bonus)
 - **Static files:** /uploads served by Express
