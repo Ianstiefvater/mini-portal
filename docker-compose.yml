@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: fire-api
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: development
+      PORT: 4000
+      CORS_ORIGIN: http://localhost:3000
+    volumes:
+      - ./server:/app
+      - api_node_modules:/app/node_modules
+      - uploads:/app/uploads
+      - data:/app/data
+    command: npm run dev
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: fire-web
+    ports:
+      - "3000:3000"
+    environment:
+      HOST: "0.0.0.0"
+      PORT: 3000
+
+      
+      CHOKIDAR_USEPOLLING: "true"
+      WATCHPACK_POLLING: "true"
+      WATCHPACK_POLLING_INTERVAL: "1000"
+
+      
+      WDS_SOCKET_HOST: "localhost"
+      WDS_SOCKET_PORT: "3000"
+    depends_on:
+      - api
+    volumes:
+      - ./web:/app:delegated
+      - web_node_modules:/app/node_modules
+    command: npm start
+
+volumes:
+  api_node_modules:
+  web_node_modules:
+  uploads:
+  data:
